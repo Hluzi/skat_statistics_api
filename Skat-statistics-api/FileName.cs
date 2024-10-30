@@ -1,3 +1,4 @@
+﻿
 namespace Skat_statistics_api
 {
     public class WeatherForecast
