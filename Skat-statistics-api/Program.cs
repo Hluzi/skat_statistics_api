@@ -1,43 +1,32 @@
+using Scalar.AspNetCore;
 using Skat_statistics_api.Services;
+using Microsoft.EntityFrameworkCore;
+using Skat_statistics_api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Load configuration (connection string) from appsettings.json
-var configuration = builder.Configuration;
-
-// Add services to the container.
+builder.Services.AddScoped<PlayerService>();
+builder.Services.AddScoped<DatabaseService>();
+builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
-// Register DatabaseService with the connection string from configuration
-builder.Services.AddSingleton(new DatabaseService(configuration));
+// Add database connection string
+builder.Configuration.AddJsonFile("appsettings.json");
 
-// Configure Swagger/OpenAPI
-//builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-    {
-        Title = "Your API",
-        Version = "v1",
-        Description = "API documentation for your project.",
-        Contact = new Microsoft.OpenApi.Models.OpenApiContact
-        {
-            Name = "Your Name",
-            Email = "you@example.com",
-            Url = new Uri("https://yourwebsite.com")
-        }
-    });
-});
+// Load configuration (connection string) from appsettings.json
+//var configuration = builder.Configuration;
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<SkatStatisticsContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if(app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+        options.WithTheme(ScalarTheme.DeepSpace);    
     });
 }
 
