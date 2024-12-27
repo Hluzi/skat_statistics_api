@@ -5,7 +5,7 @@ using Skat_statistics_api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<PlayerService>();
-builder.Services.AddScoped<DatabaseService>();
+//builder.Services.AddScoped<DatabaseService>();
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 

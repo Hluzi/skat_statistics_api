@@ -15,22 +15,39 @@ namespace Skat_statistics_api.Controllers
             _playerService = playerService;
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetPlayer(int id)
-        //{
-        //    var player = await _playerService.GetPlayerByIdAsync(id);
-        //    if (player == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(player);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPlayer(int id)
+        {
+            var player = await _playerService.GetPlayerByIdAsync(id);
+            if (player == null)
+            {
+                return NotFound();
+            }
+            return Ok(player);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetPlayers()
+        {
+            var players = await _playerService.GetPlayersAsync();
+            if (players == null)
+            {
+                return NotFound();
+            }
+            return Ok(players);
+        }
 
         [HttpPost("import")]
         public IActionResult ImportPlayers([FromBody] List<Player> players)
         {
-            _playerService.ImportPlayers(players);
+            _playerService.AddPlayersAsync(players);
             return Ok(new { message = "Players imported successfully!" });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePlayer(int id)
+        {
+            await _playerService.DeletePlayerAsync(id);
+            return NoContent();
         }
 
     }
