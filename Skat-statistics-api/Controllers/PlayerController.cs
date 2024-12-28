@@ -1,5 +1,4 @@
 ﻿using Skat_statistics_api.Services;
-using Microsoft.AspNetCore.Mvc;
 using Skat_statistics_api.Models;
 
 namespace Skat_statistics_api.Controllers
@@ -36,8 +35,8 @@ namespace Skat_statistics_api.Controllers
             return Ok(players);
         }
 
-        [HttpPost("import")]
-        public IActionResult ImportPlayers([FromBody] List<Player> players)
+        [HttpPost("Add")]
+        public IActionResult Addplayers([FromBody] List<Player> players)
         {
             _playerService.AddPlayersAsync(players);
             return Ok(new { message = "Players imported successfully!" });

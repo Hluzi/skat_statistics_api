@@ -1,6 +1,5 @@
 using Scalar.AspNetCore;
 using Skat_statistics_api.Services;
-using Microsoft.EntityFrameworkCore;
 using Skat_statistics_api.Models;
 
 var builder = WebApplication.CreateBuilder(args);

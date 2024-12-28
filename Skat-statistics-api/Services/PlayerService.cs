@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Skat_statistics_api.Models;   
+﻿using Skat_statistics_api.Models;   
 namespace Skat_statistics_api.Services
 {
     public class PlayerService

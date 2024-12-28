@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-namespace Skat_statistics_api.Models
+﻿namespace Skat_statistics_api.Models
 {
     public class Player
     {

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-namespace Skat_statistics_api.Models
+﻿namespace Skat_statistics_api.Models
 {
     public class SkatStatisticsContext : DbContext
     {
